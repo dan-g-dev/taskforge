@@ -108,7 +108,8 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
             Organization & Members
           </h1>
           <p className="text-xs text-slate-500 font-medium mt-0.5">
-            Manage organization profile, team members, and role-based permissions (RBAC).
+            Manage organization profile, team members, and role-based
+            permissions (RBAC).
           </p>
         </div>
 
@@ -137,20 +138,28 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
             </div>
             <div>
               {isEditingOrg ? (
-                <form onSubmit={handleUpdateOrg} className="flex items-center gap-2">
+                <form
+                  onSubmit={handleUpdateOrg}
+                  className="flex items-center gap-2"
+                >
                   <input
                     type="text"
                     value={orgName}
                     onChange={(e) => setOrgName(e.target.value)}
                     className="border border-slate-300 rounded px-2 py-1 text-sm font-bold focus:ring-1 focus:ring-blue-500"
                   />
-                  <button type="submit" className="p-1 text-emerald-600 hover:bg-emerald-50 rounded">
+                  <button
+                    type="submit"
+                    className="p-1 text-emerald-600 hover:bg-emerald-50 rounded"
+                  >
                     <Check className="w-4 h-4" />
                   </button>
                 </form>
               ) : (
                 <div className="flex items-center gap-2">
-                  <h3 className="font-black text-lg text-slate-900">{organization?.name || 'TaskForge Workspace'}</h3>
+                  <h3 className="font-black text-lg text-slate-900">
+                    {organization?.name || "TaskForge Workspace"}
+                  </h3>
                   {isAdmin && (
                     <button
                       onClick={() => setIsEditingOrg(true)}
@@ -163,7 +172,8 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
                 </div>
               )}
               <span className="text-xs text-slate-400 font-mono">
-                slug: {organization?.slug || 'workspace'} • {users.length} registered members
+                {" "}
+                {users.length} registered members{" "}
               </span>
             </div>
           </div>
@@ -175,7 +185,9 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
         <div className="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Users className="w-4 h-4 text-blue-600" />
-            <h3 className="font-bold text-sm text-slate-800">Directory ({users.length})</h3>
+            <h3 className="font-bold text-sm text-slate-800">
+              Directory ({users.length})
+            </h3>
           </div>
           <span className="text-[11px] text-slate-400 font-medium">
             Backend RBAC checks enforce permissions for all operations
@@ -195,25 +207,35 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
             </thead>
             <tbody className="divide-y divide-slate-100">
               {users.map((u) => (
-                <tr key={u.id} className="hover:bg-slate-50/70 transition-colors">
+                <tr
+                  key={u.id}
+                  className="hover:bg-slate-50/70 transition-colors"
+                >
                   <td className="px-5 py-3.5 font-semibold text-slate-900">
                     <div className="flex items-center gap-2.5">
                       <div
                         className="w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-bold shadow-xs shrink-0"
-                        style={{ backgroundColor: u.avatar_color || '#2563EB' }}
+                        style={{ backgroundColor: u.avatar_color || "#2563EB" }}
                       >
-                        {u.first_name[0]}{u.last_name[0]}
+                        {u.first_name[0]}
+                        {u.last_name[0]}
                       </div>
-                      <span>{u.first_name} {u.last_name}</span>
+                      <span>
+                        {u.first_name} {u.last_name}
+                      </span>
                     </div>
                   </td>
-                  <td className="px-5 py-3.5 text-slate-500 font-mono text-[11px]">{u.email}</td>
+                  <td className="px-5 py-3.5 text-slate-500 font-mono text-[11px]">
+                    {u.email}
+                  </td>
                   <td className="px-5 py-3.5">
                     {isAdmin ? (
                       <select
                         value={u.role}
                         disabled={u.id === currentUser?.id}
-                        onChange={(e) => handleRoleChange(u.id, e.target.value as UserRole)}
+                        onChange={(e) =>
+                          handleRoleChange(u.id, e.target.value as UserRole)
+                        }
                         className="bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-semibold text-slate-700 cursor-pointer disabled:bg-transparent disabled:border-transparent"
                       >
                         <option value="ADMIN">ADMIN</option>
@@ -221,10 +243,15 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
                         <option value="DEVELOPER">DEVELOPER</option>
                       </select>
                     ) : (
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                        u.role === 'ADMIN' ? 'bg-red-50 text-red-700' :
-                        u.role === 'MANAGER' ? 'bg-blue-50 text-blue-700' : 'bg-purple-50 text-purple-700'
-                      }`}>
+                      <span
+                        className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          u.role === "ADMIN"
+                            ? "bg-red-50 text-red-700"
+                            : u.role === "MANAGER"
+                              ? "bg-blue-50 text-blue-700"
+                              : "bg-purple-50 text-purple-700"
+                        }`}
+                      >
                         {u.role}
                       </span>
                     )}
@@ -256,11 +283,15 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
       {isAddUserModalOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200">
-            <h3 className="font-bold text-base text-slate-900 mb-3">Add Member to Organization</h3>
+            <h3 className="font-bold text-base text-slate-900 mb-3">
+              Add Member to Organization
+            </h3>
             <form onSubmit={handleAddUser} className="space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">First Name *</label>
+                  <label className="block font-semibold text-slate-700 mb-1">
+                    First Name *
+                  </label>
                   <input
                     type="text"
                     required
@@ -271,7 +302,9 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Last Name *</label>
+                  <label className="block font-semibold text-slate-700 mb-1">
+                    Last Name *
+                  </label>
                   <input
                     type="text"
                     required
@@ -284,7 +317,9 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Email Address *</label>
+                <label className="block font-semibold text-slate-700 mb-1">
+                  Email Address *
+                </label>
                 <input
                   type="email"
                   required
@@ -296,20 +331,32 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Initial Role *</label>
+                <label className="block font-semibold text-slate-700 mb-1">
+                  Initial Role *
+                </label>
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as UserRole)}
                   className="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-1 focus:ring-blue-500 focus:outline-none"
                 >
-                  <option value="DEVELOPER">DEVELOPER (View tasks, update status, comment, attachments)</option>
-                  <option value="MANAGER">MANAGER (Create projects, create & assign tasks, manage teams)</option>
-                  <option value="ADMIN">ADMIN (Full organization, billing, project, user & team control)</option>
+                  <option value="DEVELOPER">
+                    DEVELOPER (View tasks, update status, comment, attachments)
+                  </option>
+                  <option value="MANAGER">
+                    MANAGER (Create projects, create & assign tasks, manage
+                    teams)
+                  </option>
+                  <option value="ADMIN">
+                    ADMIN (Full organization, billing, project, user & team
+                    control)
+                  </option>
                 </select>
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Temporary Password</label>
+                <label className="block font-semibold text-slate-700 mb-1">
+                  Temporary Password
+                </label>
                 <input
                   type="text"
                   value={password}
@@ -331,7 +378,7 @@ export const OrganizationView: React.FC<OrganizationViewProps> = ({
                   disabled={submitting}
                   className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow-xs cursor-pointer"
                 >
-                  {submitting ? 'Adding...' : 'Add User'}
+                  {submitting ? "Adding..." : "Add User"}
                 </button>
               </div>
             </form>
